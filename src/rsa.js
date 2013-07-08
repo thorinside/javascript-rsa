@@ -206,10 +206,8 @@ var ASN1Data = function($data) {
 var RSA = {
     getPublicKey: function($pem) {
         if($pem.length<50) return false;
-        if($pem.substr(0,26)!="-----BEGIN PUBLIC KEY-----") return false;
-        $pem = $pem.substr(26);
-        if($pem.substr($pem.length-24)!="-----END PUBLIC KEY-----") return false;
-        $pem = $pem.substr(0,$pem.length-24);
+        $pem = $pem.replace('-----BEGIN PUBLIC KEY-----','');
+        $pem = $pem.replace('-----END PUBLIC KEY-----','');
         $pem = new ASN1Data(Base64.decode($pem));
         if($pem.error) return false;
         $pem = $pem.data;
